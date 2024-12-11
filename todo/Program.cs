@@ -21,7 +21,8 @@ static async Task<CosmosDbService> InitializeCosmosClientInstanceAsync(IConfigur
 	var containerName = "Item";
 	var account = configurationSection["AccountEndpoint"];
 	var key = configurationSection["AccountKey"];
-	var client = new Microsoft.Azure.Cosmos.CosmosClient(account, key);
+	var connectionString = "token";
+	var client = new Microsoft.Azure.Cosmos.CosmosClient(connectionString);
 	var database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
 	await database.Database.CreateContainerIfNotExistsAsync(containerName, "/id");
 	var cosmosDbService = new CosmosDbService(client, databaseName, containerName);
